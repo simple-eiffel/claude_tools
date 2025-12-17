@@ -50,6 +50,10 @@ feature -- Commands
 				test_cmd.execute (arguments_array)
 			elseif l_cmd.same_string ("uuid") then
 				uuid_cmd.execute (arguments_array)
+			elseif l_cmd.same_string ("--help") or l_cmd.same_string ("-h") or l_cmd.same_string ("help") then
+				print_usage
+			elseif l_cmd.same_string ("--version") or l_cmd.same_string ("-v") then
+				print_version
 			else
 				io.put_string ("ERROR: Unknown command: " + l_cmd.to_string_8 + "%N")
 				print_usage
@@ -61,21 +65,31 @@ feature -- Output
 	print_usage
 		do
 			io.put_string ("claude_tools - CLI tools for Claude Code%N%N")
+			io.put_string ("USAGE: claude_tools <command> [args]%N%N")
 			io.put_string ("COMMANDS:%N")
-			io.put_string ("  file write <path> --stdin%N")
-			io.put_string ("  file read <path>%N")
-			io.put_string ("  file exists <path>%N")
-			io.put_string ("  file delete <path>%N")
-			io.put_string ("  file replace <path> --match <old> --with <new> [--all]%N%N")
-			io.put_string ("  grep <pattern> <path>%N")
-			io.put_string ("  glob <pattern> [<dir>]%N%N")
-			io.put_string ("  git status [<dir>]%N")
-			io.put_string ("  git add [<dir>] [--all]%N")
-			io.put_string ("  git commit <message> [<dir>]%N")
-			io.put_string ("  git push [<dir>]%N%N")
-			io.put_string ("  test <exe_path>%N%N")
-			io.put_string ("  uuid scan [<dir>]  - Scan for duplicate ECF UUIDs%N")
-			io.put_string ("  uuid fix [<dir>]   - Fix duplicates with new UUIDs%N")
+			io.put_string ("  file write <path> --stdin     Write stdin to file%N")
+			io.put_string ("  file read <path>              Read file contents%N")
+			io.put_string ("  file exists <path>            Check if file exists%N")
+			io.put_string ("  file delete <path>            Delete file%N")
+			io.put_string ("  file replace <path> --match <old> --with <new> [--all]%N")
+			io.put_string ("  file list <dir> [--glob <pattern>]%N")
+			io.put_string ("  file insert <path> --after <line> --stdin%N%N")
+			io.put_string ("  grep <pattern> <path>         Search file contents%N")
+			io.put_string ("  glob <pattern> [<dir>]        Find files by pattern%N%N")
+			io.put_string ("  git status [<dir>]            Git status%N")
+			io.put_string ("  git add [<dir>] [--all]       Git add%N")
+			io.put_string ("  git commit <message> [<dir>]  Git commit%N")
+			io.put_string ("  git push [<dir>]              Git push%N%N")
+			io.put_string ("  test <exe_path>               Run test executable%N%N")
+			io.put_string ("  uuid scan [<dir>]             Scan for duplicate ECF UUIDs%N")
+			io.put_string ("  uuid fix [<dir>]              Fix duplicates with new UUIDs%N%N")
+			io.put_string ("  --help, -h                    Show this help%N")
+			io.put_string ("  --version, -v                 Show version%N")
+		end
+
+	print_version
+		do
+			io.put_string ("claude_tools v1.0.0%N")
 		end
 
 feature {NONE} -- Implementation
